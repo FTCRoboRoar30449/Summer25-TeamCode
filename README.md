@@ -21,7 +21,7 @@ TeamCode/                               ← **all team‑written code lives here
       │  │   ├─ MotorEx.java
       │  │   ├─ ServoEx.java
       │  │   └─ IMUEx.java
-      │  ├─ localization/               # PedroPath impl
+      │  ├─ localization/               # PedroPath implementation
       │  │   └─ Localizer.java
       │  ├─ subsystems/                 # Homeostasis “plants” (one per mechanism)
       │  │   ├─ drivetrain/ MecanumDriveRR.java
