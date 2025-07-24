@@ -22,6 +22,6 @@ private final Pose preStaged2Pose = new Pose(115, 15, Math.toRadians(180)); // S
 private final Pose preStaged3Pose = new Pose(115, 12, Math.toRadians(215)); // Third Pre-staged sample pickup
 
 private final Pose subPose = new Pose(72, 40, Math.toRadians(90)); // sub pickup/position
-// **dont get heading** //private final Pose subControlPose = new Pose(60, 98, Math.toRadians(90)); // Control point for curved path to sub position
+private final Pose subControlPose = new Pose(90, 25, Math.toRadians(282)); // Control point for curved path to sub position *heading is approximate
 private final Pose endPose = new Pose(72, 45, Math.toRadians(-90));    // Endgame position - low rung
 
