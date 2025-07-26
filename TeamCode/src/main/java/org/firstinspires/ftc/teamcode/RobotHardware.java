@@ -30,15 +30,5 @@ public class RobotHardware {
         // Add other motors, servos, sensors as needed
     }
 
-    // Update wit your controler based drive functions
-    public void setPower(double x, double y) {
-        double leftPower = y + x;
-        double rightPower = y - x;
-        LFMotor.setPower(leftPower);
-        LBMotor.setPower(leftPower);
-        RFMotor.setPower(rightPower);
-        RBMotor.setPower(rightPower);
-    }
 
-    // Add methods for controlling the arm, claw, etc.
 }
