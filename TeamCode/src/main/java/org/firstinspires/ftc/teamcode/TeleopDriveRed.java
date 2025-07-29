@@ -30,7 +30,7 @@ public class TeleopDriveRed extends LinearOpMode {
             double drive = -gamepad1.left_stick_y;  // Forward/Back
             double strafe = gamepad1.left_stick_x;  // Left/Right
             double turn = gamepad1.right_stick_x;   // Rotation
-
+            double max = 0; // Absolute Max
             // Call method to drive the robot (implement this later)
             driveRobot(drive, strafe, turn);
 
@@ -86,9 +86,13 @@ public class TeleopDriveRed extends LinearOpMode {
     }
 
     // Method to handle Mecanum drive
-    public void driveRobot(double drive, double strafe, double turn) {
+    public void driveRobot(double drive, double strafe, double turn, double max) {
         // TODO: Add code for mecanum drive
-
+        max = Math.max(Math.abs(drive) + Math.abs(turn) + Math.abs(strafe), 1);
+        robot.LFMotor.setPower((drive + (turn + strafe))/max);
+        robot.RFMotor.setPower((drive + (-turn - strafe))/max);
+        robot.LBMotor.setPower((drive + (turn - strafe))/max);
+        robot.RBMotor.setPower((drive + (-turn + strafe))/max);
     }
 
     // Method to toggle the claw (open/close)

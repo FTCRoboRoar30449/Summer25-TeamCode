@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+
 public class MechController {
 
     // Reference to the robot’s hardware
@@ -15,7 +18,14 @@ public class MechController {
         switch (state) {
             case IDLE_POSITION:
                 robot.PivotRot.setPower(100); // robot gives you access to all the available robot hardware and pivotRot, Arm1 are all different motors following that you can add the task you want that motor to do.
-               // TODO: ADD CODE
+                // TODO: ADD CODE
+                robot.ClawOC.setPosition(0);
+                robot.ClawRot.setPosition(135/300);
+                robot.HeadRot.setPosition(90/300);
+                robot.PivotRot.setTargetPosition(597);
+                robot.PivotRot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.ArmL.setPower(0);
+                robot.ArmR.setPower(0);
                 break;
 
             case COLLECTING_PS_POSITION:
