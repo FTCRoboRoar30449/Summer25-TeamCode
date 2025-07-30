@@ -9,12 +9,11 @@ public class TeleopDriveRed extends LinearOpMode {
     RobotHardware robot;
     MechController mechController;
     MechState currentState;
-    boolean clawOpen = true;
 
     @Override
     public void runOpMode() {
 
-        robot = new RobotHardware(hardwareMap, telemetry);
+        robot = new RobotHardware(hardwareMap);
         mechController = new MechController(robot);
         currentState = MechState.IDLE_POSITION;
 
@@ -23,35 +22,59 @@ public class TeleopDriveRed extends LinearOpMode {
 
         waitForStart();
 
+
         while (opModeIsActive()) {
-            double drive = -gamepad1.left_stick_y;
-            double strafe = gamepad1.left_stick_x;
-            double turn = gamepad1.right_stick_x;
-            double max = Math.max(Math.abs(drive) + Math.abs(turn) + Math.abs(strafe), 1);
+            // ===== DRIVING =====
+            double drive = -gamepad1.left_stick_y;  // Forward/Back
+            double strafe = gamepad1.left_stick_x;  // Left/Right
+            double turn = gamepad1.right_stick_x;   // Rotation
+            double max = 0; // Absolute Max
+            // Call method to drive the robot (implement this later)
             driveRobot(drive, strafe, turn, max);
 
+            // ===== MECHANISM CONTROLS =====
+
+            // --- X Button ---
             if (gamepad1.x) {
+
+                //TODO: CODE TO DRIVE TO COLLECTION LOCATION
+
                 currentState = MechState.SUB_POSITION;
                 mechController.handleMechState(currentState);
+
+                //TODO: CODE TO DETECT AND GRAB THE GAME ELEMENT
                 toggleClaw();
+
                 currentState = MechState.RESET_POSITION;
                 mechController.handleMechState(currentState);
             }
 
+            // --- Y Button ---
             if (gamepad1.y) {
+
+                //TODO: CODE TO DRIVE TO DROP LOCATION
+
                 currentState = MechState.HIGH_BASKET_POSITION;
                 mechController.handleMechState(currentState);
                 toggleClaw();
+
+                // Add an if statement or some form of checker to make sure you drop the game element and once you do then do the below:
                 currentState = MechState.RESET_POSITION;
                 mechController.handleMechState(currentState);
             }
 
+            // --- A Button ---
             if (gamepad1.a) {
+
+                //TODO: CODE TO DRIVE TO ENDGAME
+
                 currentState = MechState.ENDGAME_POSITION;
                 mechController.handleMechState(currentState);
             }
 
+            // --- B Button ---
             if (gamepad1.b) {
+                // Toggle claw open/close (implement this in MechController or here)
                 toggleClaw();
             }
 
@@ -60,15 +83,21 @@ public class TeleopDriveRed extends LinearOpMode {
         }
     }
 
+    // Method to handle Mecanum drive
     public void driveRobot(double drive, double strafe, double turn, double max) {
-        robot.LFMotor.setPower((drive + turn + strafe) / max);
-        robot.RFMotor.setPower((drive - turn - strafe) / max);
-        robot.LBMotor.setPower((drive + turn - strafe) / max);
-        robot.RBMotor.setPower((drive - turn + strafe) / max);
+        // TODO: Add code for mecanum drive
+        max = Math.max(Math.abs(drive) + Math.abs(turn) + Math.abs(strafe), 1);
+        robot.LFMotor.setPower((drive + (turn + strafe))/max);
+        robot.RFMotor.setPower((drive + (-turn - strafe))/max);
+        robot.LBMotor.setPower((drive + (turn - strafe))/max);
+        robot.RBMotor.setPower((drive + (-turn + strafe))/max);
     }
 
+    // Method to toggle the claw (open/close)
     public void toggleClaw() {
-        clawOpen = !clawOpen;
-        robot.ClawOC.setPosition(clawOpen ? 1.0 : 0.0); // Change these if needed
+        // TODO: Add logic to toggle the claw position
+        // Use a boolean flag to track claw state
     }
+
+    //If you need any other custom methods you can write that here
 }

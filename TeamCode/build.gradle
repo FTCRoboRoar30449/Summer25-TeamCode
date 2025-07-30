@@ -26,3 +26,6 @@ android {
 dependencies {
     implementation project(':FtcRobotController')
 }
+dependencies {
+    implementation 'com.pedropathing:core:1.0.0' // Example — replace with actual version
+}
