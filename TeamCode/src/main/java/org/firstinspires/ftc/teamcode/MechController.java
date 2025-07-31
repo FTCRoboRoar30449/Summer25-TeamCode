@@ -32,6 +32,7 @@ public class MechController {
         return (TICKS_PER_FULL_ROTATION / 360.0) * degrees;
     }
 
+    // Alon: Think about switching units to cm or mm, distance instead of stages
     private double CalculateArmTicks(double numOfStages) {
         double travelDistance = numOfStages * MAX_LENGTH_PER_STAGE;
         double numOfRotations = travelDistance / DISTANCE_PER_ROTATION;
@@ -41,22 +42,35 @@ public class MechController {
     public void handleMechState(MechState state) {
         switch (state) {
             case IDLE_POSITION:
-                movePivotAndArms(0, 0);
+                movePivotAndArms(-10, 0);
+                setClawAndHead(0,135,90);
                 break;
 
             case HIGH_BASKET_POSITION:
-                setClawAndHead(60, 135, 90);
                 movePivotAndArms(-10, 4);
+                setClawAndHead(60, 135, 90);
                 break;
 
             case ENDGAME_POSITION:
-                setClawAndHead(-60, 225, 90);
                 movePivotAndArms(-10, 1);
+                setClawAndHead(-60, 225, 90);
                 break;
 
             case RESET_POSITION:
+                movePivotAndArms(90,0);
+                setClawAndHead(0,-25, 35);
+                break;
+
             case SUB_POSITION:
+                movePivotAndArms(90,2);
+                setClawAndHead(-60, 135,40);
+                break;
+
             case COLLECTING_PS_POSITION:
+                movePivotAndArms(90,0);
+                setClawAndHead(-60,135,-25);
+                break;
+
             case LOW_BASKET_POSITION:
             case SPECIMEN_POSITION:
                 // TODO: Fill in these states
