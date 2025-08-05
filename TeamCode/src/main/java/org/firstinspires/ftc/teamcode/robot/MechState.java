@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode;
-
-// MechState.java
+package org.firstinspires.ftc.teamcode.robot;
 public enum MechState {
     IDLE_POSITION,             // 1
     COLLECTING_PS_POSITION,    // 2
